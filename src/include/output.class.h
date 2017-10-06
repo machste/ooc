@@ -6,30 +6,30 @@
 #ifndef _OUTPUT_CLASS_H_
 #define _OUTPUT_CLASS_H_
 
-#include <object.class.h>
+#include <output.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * @brief Class Method Definitions
+ * @brief Output Class
+ */
+extern const class Output;
+
+/**
+ * @brief Output Methods
  */
 typedef size_t (*write_cb)(void *self, const char *data, size_t size);
 typedef int (*vformat_cb)(void *self, const char *fmt, va_list *va);
 
 /**
- * @brief Generic Output Class Definition
+ * @brief Method Table of Output
  */
-typedef struct output_class {
-    object_class object_cls;
+typedef struct output_mt {
     write_cb write;
     vformat_cb vformat;
-} output_class;
-
-#ifdef __cplusplus
-}
-#endif
+} output_mt;
 
 /**
  * @brief Write to Output
@@ -41,5 +41,8 @@ size_t write(void *self, const char *data, size_t size);
  */
 int format(void *self, const char *fmt, ...);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _OUTPUT_CLASS_H_ */

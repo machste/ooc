@@ -13,10 +13,8 @@
 extern "C" {
 #endif
 
-extern const output_class Output;
-
 /**
- * @brief Output Object Definition
+ * @brief Output Object
  */
 struct output {
     object obj;

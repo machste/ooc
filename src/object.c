@@ -4,13 +4,13 @@
 
 #include <object.h>
 
-object *object_init(object *self, const object_class *cls)
+object *object_init(object *self, const class *cls)
 {
-    self->object_cls = cls;
+    self->cls = cls;
     return self;
 }
 
-object *object_vinit(object *self, const object_class *cls, va_list *va)
+object *object_vinit(object *self, const class *cls, va_list *va)
 {
     return object_init(self, cls);
 }
@@ -31,6 +31,7 @@ int object_take(object *self, input *in) {
 
 size_t object_to_cstr(object *self, char *cstr, size_t size)
 {
+
     // TODO: Use _put_as_cstr here.
     return snprintf(cstr, size, "<%s at %p, size: %zu>", name_of(self), self,
             size_of(self));
@@ -54,16 +55,3 @@ void object_print(object *self)
     object_put(self, &stdoutput);
     puts("");
 }
-
-const object_class Object = {
-    .cls = {
-        .name = "object",
-        .super = NULL,
-        .size = sizeof(object)
-    },
-    .vinit = (vinit_cb)object_vinit,
-    .destroy = (destroy_cb)object_destroy,
-    .to_cstr = (to_cstr_cb)object_to_cstr,
-    .print = (print_cb)object_print
-};
-

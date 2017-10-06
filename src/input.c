@@ -4,7 +4,7 @@
 
 input *input_init(input *self)
 {
-    object_init(&self->obj, &Input.object_cls);
+    object_init(&self->obj, &Input);
     return self;
 }
 
@@ -12,7 +12,6 @@ input *input_vinit(input *self, va_list *va)
 {
     return input_init(self);
 }
-
 
 void input_destroy(input *self)
 {
@@ -39,24 +38,8 @@ int input_vscan(input *self, const char *fmt, va_list *va)
     return vscanf(fmt, *va);
 }
 
-const input_class Input = {
-    .object_cls = {
-        .cls = {
-            .name = "input",
-            .size = sizeof(input),
-            .super = &Object.cls,
-        },
-        .vinit = (vinit_cb)input_vinit,
-        .destroy = (destroy_cb)input_destroy,
-        .to_cstr = (to_cstr_cb)object_to_cstr,
-        .print = (print_cb)object_print,
-    },
-    .read = (read_cb)input_read,
-    .vscan = (vscan_cb)input_vscan
-};
-
 input stdinput = {
     .obj = {
-        .object_cls = &Input.object_cls
+        .cls = &Input
     }
 };

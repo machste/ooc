@@ -8,19 +8,18 @@
 
 #include <stdarg.h>
 
+#include <class.h>
 #include <object.class.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern const object_class Object;
-
 /**
- * @brief Object Definition
+ * @brief Object
  */
 typedef struct object {
-    const object_class *object_cls;
+    const class *cls;
 } object;
 
 /**
@@ -38,8 +37,8 @@ typedef struct input input;
  *
  * @return Pointer to the initialised 'object'
  */
-object *object_init(object *self, const object_class *cls);
-object *object_vinit(object *self, const object_class *cls, va_list *va);
+object *object_init(object *self, const class *cls);
+object *object_vinit(object *self, const class *cls, va_list *va);
 
 /**
  * @brief Destroy an Object

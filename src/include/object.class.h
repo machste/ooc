@@ -6,16 +6,19 @@
 #ifndef _OBJECT_CLASS_H_
 #define _OBJECT_CLASS_H_
 
-#include <stddef.h>
-
-#include <class.h>
+#include <object.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * @brief Class Method Definitions
+ * @brief Object Class
+ */
+extern const class Object;
+
+/**
+ * @brief Object Methods
  */
 typedef void *(*vinit_cb)(void *self, const void *cls, va_list *va);
 typedef void (*destroy_cb)(void *self);
@@ -23,32 +26,29 @@ typedef size_t (*to_cstr_cb)(void *self, char *cstr, size_t size);
 typedef void (*print_cb)(void *self);
 
 /**
- * @brief Object Class Definition
+ * @brief Method Table of Object
  */
-typedef struct object_class {
-    class cls;
+typedef struct object_mt {
     vinit_cb vinit;
     destroy_cb destroy;
     to_cstr_cb to_cstr;
     print_cb print;
-} object_class;
+} object_mt;
 
 /**
  * @brief Initialise an Object
  */
-void *init(void *self, const void *cls, ...);
-
-/**
- * @brief Destroy an Object
- *
- * Destroys Objects created by init functions.
- */
-void destroy(void *self);
+void *init(void *self, const class *cls, ...);
 
 /**
  * @brief Get Class of an Object
  */
-const void *class_of(const void *self);
+const class *class_of(const void *self);
+
+/**
+ * @brief Is an Object an Instance Of
+ */
+bool isinstance(const void *self, const void *cls);
 
 /**
  * @brief Get Name of the Class
@@ -61,9 +61,18 @@ const char *name_of(const void *self);
 size_t size_of(const void *self);
 
 /**
- * @brief Is an Object an Instance Of
+ * @brief Get Virtual Method Table (VMT) Of a Sub-Class
+ *
+ * @return Pointer of the VMT of the sub-class, otherwise NULL
  */
-bool isinstance(const void *self, const void *cls);
+const void *mt_of(const void *self, const void *subcls);
+
+/**
+ * @brief Destroy an Object
+ *
+ * Destroys Objects created by init functions.
+ */
+void destroy(void *self);
 
 /**
  * @brief Convert to C-String

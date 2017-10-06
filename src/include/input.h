@@ -13,10 +13,8 @@
 extern "C" {
 #endif
 
-extern const input_class Input;
-
 /**
- * @brief Input Object Definition
+ * @brief Input Object
  */
 struct input {
     object obj;
