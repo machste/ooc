@@ -7,7 +7,13 @@ void *init(void *self, const class *cls, ...)
 {
     void *obj;
     va_list va;
-    const object_mt *mt = mt_of_class(cls, &Object);
+    assert(cls != NULL);
+    // Initialise class, if needed
+    if (cls->name == NULL) {
+        cls->class_init();
+    }
+    // Initialise object
+    const object_mt *mt = mt_of_class(cls, Object);
     va_start(va, cls);
     obj = mt->vinit(self, cls, &va);
     va_end(va);
@@ -42,7 +48,7 @@ const void *mt_of(const void *self, const void *subcls)
 
 void destroy(void *self)
 {
-    const object_mt *mt = mt_of(self, &Object);
+    const object_mt *mt = mt_of(self, Object);
     mt->destroy(self);
 }
 
@@ -53,7 +59,7 @@ size_t to_cstr(void *self, char *cstr, size_t size)
 
 void print(void *self)
 {
-    const object_mt *mt = mt_of(self, &Object);
+    const object_mt *mt = mt_of(self, Object);
     mt->print(self);
 }
 
@@ -64,11 +70,15 @@ static const object_mt _ObjectMt = {
     .print = (print_cb)object_print
 };
 
-const class Object = {
-    .name = "object",
-    .size = sizeof(object),
-    .mt = &_ObjectMt,
-    .super = NULL,
-    .vmts = NULL
+static const class *_class_init(void)
+{
+    return class_init(Object, "object", sizeof(object), &_ObjectMt, NULL, NULL);
+}
+
+static class _Object = {
+    .class_init = _class_init,
+    .name = NULL
+    // Everthing else will be initialised by init_class method.
 };
 
+const class *Object = &_Object;

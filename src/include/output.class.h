@@ -15,7 +15,7 @@ extern "C" {
 /**
  * @brief Output Class
  */
-extern const class Output;
+extern const class *Output;
 
 /**
  * @brief Output Methods

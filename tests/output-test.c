@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     output out;
     Log_info(" Output Test\n-------------\n");
     // Initialise output object
-    init(&out, &Output);
+    init(&out, Output);
     // Test print method
     Log_info("* Test print()\n");
     print(&out);

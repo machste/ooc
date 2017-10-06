@@ -15,7 +15,7 @@ extern "C" {
 /**
  * @brief Input Class
  */
-extern const class Input;
+extern const class *Input;
 
 /**
  * @brief Input Methods

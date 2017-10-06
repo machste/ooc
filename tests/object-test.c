@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     object o;
     Log_info(" Object Test\n-------------\n");
     // Initialise object
-    init(&o, &Object);
+    init(&o, Object);
     // Test print method
     Log_info("* Test print()\n");
     print(&o);

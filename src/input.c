@@ -4,7 +4,7 @@
 
 input *input_init(input *self)
 {
-    object_init(&self->obj, &Input);
+    object_init(&self->obj, Input);
     return self;
 }
 
@@ -37,9 +37,3 @@ int input_vscan(input *self, const char *fmt, va_list *va)
 {
     return vscanf(fmt, *va);
 }
-
-input stdinput = {
-    .obj = {
-        .cls = &Input
-    }
-};

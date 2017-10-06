@@ -19,12 +19,19 @@ extern "C" {
 typedef struct class class;
 
 struct class {
+    const class *(*class_init)(void);
     const char *name;
     size_t size;
     const void *mt;
     const class *super;
     const void **vmts;
 };
+
+/**
+ * @brief Initialise Class
+ */
+const class *class_init(const class *cls, const char *name, size_t size,
+        const void *mt, const class *super, const void **vmts);
 
 /**
  * @brief Is a Class a Sub-Class

@@ -52,6 +52,8 @@ size_t object_to_cstr(object *self, char *cstr, size_t size)
 
 void object_print(object *self)
 {
+    output stdoutput;
+    init(&stdoutput, Output);
     object_put(self, &stdoutput);
     puts("");
 }

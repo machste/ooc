@@ -15,7 +15,7 @@ extern "C" {
 /**
  * @brief Object Class
  */
-extern const class Object;
+extern const class *Object;
 
 /**
  * @brief Object Methods

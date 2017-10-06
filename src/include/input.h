@@ -46,11 +46,6 @@ size_t input_read(input *self, char *data, size_t size);
 int input_scan(input *self, const char *fmt, ...);
 int input_vscan(input *self, const char *fmt, va_list *va);
 
-/**
- * @brief Standart Input
- */
-extern input stdinput;
-
 #ifdef __cplusplus
 }
 #endif

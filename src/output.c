@@ -4,7 +4,7 @@
 
 output *output_init(output *self)
 {
-    object_init(&self->obj, &Output);
+    object_init(&self->obj, Output);
     return self;
 }
 
@@ -37,9 +37,3 @@ int output_vformat(output *self, const char *fmt, va_list *va)
 {
     return vprintf(fmt, *va);
 }
-
-output stdoutput = {
-    .obj = {
-        .cls = &Output
-    }
-};

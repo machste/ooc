@@ -33,10 +33,16 @@ static const input_mt _InputMt = {
     .vscan = (vscan_cb)input_vscan
 };
 
-const class Input = {
-    .name = "input",
-    .size = sizeof(input),
-    .mt = &_InputMt,
-    .super = &Object,
-    .vmts = _InputVmts
+static const class *_class_init(void)
+{
+    return class_init(Input, "input", sizeof(input), &_InputMt, Object,
+            _InputVmts);
+}
+
+static class _Input = {
+    .class_init = _class_init,
+    .name = NULL
+    // Everthing else will be initialised by init_class method.
 };
+
+const class *Input = &_Input;

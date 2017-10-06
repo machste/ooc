@@ -46,11 +46,6 @@ size_t output_write(output *self, const char *data, size_t size);
 int output_format(output *self, const char *fmt, ...);
 int output_vformat(output *self, const char *fmt, va_list *va);
 
-/**
- * @brief Standart Output
- */
-extern output stdoutput;
-
 #ifdef __cplusplus
 }
 #endif
