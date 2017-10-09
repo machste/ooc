@@ -1,6 +1,6 @@
-#include <stdarg.h>
 #include <assert.h>
 
+#include <object.h>
 #include <object.class.h>
 
 void *init(void *self, const class *cls, ...)

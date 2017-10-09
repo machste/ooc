@@ -8,7 +8,6 @@
 
 #include <stdarg.h>
 
-#include <class.h>
 #include <object.class.h>
 
 #ifdef __cplusplus

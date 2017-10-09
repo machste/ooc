@@ -6,7 +6,7 @@
 #ifndef _OUTPUT_CLASS_H_
 #define _OUTPUT_CLASS_H_
 
-#include <output.h>
+#include <class.h>
 
 #ifdef __cplusplus
 extern "C" {

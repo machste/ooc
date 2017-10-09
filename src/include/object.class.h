@@ -6,7 +6,9 @@
 #ifndef _OBJECT_CLASS_H_
 #define _OBJECT_CLASS_H_
 
-#include <object.h>
+#include <stdarg.h>
+
+#include <class.h>
 
 #ifdef __cplusplus
 extern "C" {

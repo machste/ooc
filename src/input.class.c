@@ -1,3 +1,4 @@
+#include <input.h>
 #include <input.class.h>
 
 size_t read(void *self, char *data, size_t size)

@@ -6,7 +6,7 @@
 #ifndef _INPUT_CLASS_H_
 #define _INPUT_CLASS_H_
 
-#include <input.h>
+#include <class.h>
 
 #ifdef __cplusplus
 extern "C" {

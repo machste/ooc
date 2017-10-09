@@ -1,3 +1,4 @@
+#include <output.h>
 #include <output.class.h>
 
 size_t write(void *self, const char *data, size_t size)
