@@ -33,13 +33,19 @@ typedef struct output_mt {
 
 /**
  * @brief Write to Output
+ *
+ * @return Number of the written bytes.
  */
 size_t write(void *self, const char *data, size_t size);
 
 /**
  * @brief Write Formatted C-String to Output
+ *
+ * @return  Length of the formatted C-string (excluding the terminating null
+ *          byte), if an output error occured, a negativ value is returned.
  */
 int format(void *self, const char *fmt, ...);
+int vformat(void *self, const char *fmt, va_list *va);
 
 #ifdef __cplusplus
 }

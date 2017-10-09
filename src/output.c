@@ -28,7 +28,7 @@ int output_format(output *self, const char *fmt, ...)
     int ret;
     va_list va;
     va_start(va, fmt);
-    ret = output_vformat(self, fmt, &va);
+    ret = vformat(self, fmt, &va);
     va_end(va);
     return ret;
 }

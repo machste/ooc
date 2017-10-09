@@ -1,3 +1,5 @@
+#include <util/memory.h>
+
 #include <input.h>
 #include <input.class.h>
 
@@ -18,26 +20,33 @@ int scan(void *self, const char *fmt, ...)
     return ret;
 }
 
-static const object_mt _ObjectVmt = {
-    .vinit = (vinit_cb)input_vinit,
-    .destroy = (destroy_cb)input_destroy,
-    .to_cstr = (to_cstr_cb)object_to_cstr,
-    .print = (print_cb)object_print,
-};
-
-static const void *_InputVmts[] = {
-    &_ObjectVmt
-};
-
-static const input_mt _InputMt = {
-    .read = (read_cb)input_read,
-    .vscan = (vscan_cb)input_vscan
-};
-
-static const class *_class_init(void)
+int vscan(void *self, const char *fmt, va_list *va)
 {
-    return class_init(Input, "input", sizeof(input), &_InputMt, Object,
-            _InputVmts);
+    const input_mt *mt = mt_of(self, &Input);
+    return mt->vscan(self, fmt, va);
+}
+
+static const class *_class_init(class *cls)
+{
+    // Initialise method table of Input class
+    static const input_mt mt = {
+        .read = (read_cb)input_read,
+        .vscan = (vscan_cb)input_vscan
+    };
+    // Initialise virtual tables
+    static const object_mt object_vmt = {
+        .vinit = (vinit_cb)input_vinit,
+        .destroy = (destroy_cb)input_destroy,
+        .to_cstr = (to_cstr_cb)object_to_cstr,
+        .print = (print_cb)object_print,
+    };
+    static vtable vts[2];
+    vts[0].cls = cls;
+    vts[0].mt = (method_cb *)&mt;
+    vts[1].cls = Object;
+    vts[1].mt = (method_cb *)&object_vmt;
+    // Initialise class
+    return class_init(cls, "input", sizeof(input), ARRAY_SIZE(vts), vts);
 }
 
 static class _Input = {

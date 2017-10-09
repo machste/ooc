@@ -14,24 +14,54 @@ extern "C" {
 #endif
 
 /**
- * @brief Class Definition
+ * @brief Class
  */
 typedef struct class class;
 
+/**
+ * @brief Virtual Method Table
+ */
+typedef struct vtable vtable;
+
+/**
+ * @brief Generic Method Callback
+ */
+typedef void (*method_cb)(void);
+
+/**
+ * @brief Method Table
+ */
+typedef method_cb * method_table;
+
+/**
+ * @brief Class Initialiser Callback
+ */
+typedef const class *(*class_init_cb)(class *cls);
+
+/**
+ * @brief Class Structure
+ */
 struct class {
-    const class *(*class_init)(void);
+    class_init_cb class_init;
     const char *name;
     size_t size;
-    const void *mt;
-    const class *super;
-    const void **vmts;
+    size_t vtables_len;
+    const vtable *vtables;
+};
+
+/**
+ * @brief Virtual Method Table Structure
+ */
+struct vtable {
+    const class *cls;
+    method_table mt;
 };
 
 /**
  * @brief Initialise Class
  */
-const class *class_init(const class *cls, const char *name, size_t size,
-        const void *mt, const class *super, const void **vmts);
+const class *class_init(class *cls, const char *name, size_t size,
+        size_t vtables_len, const vtable *vtables);
 
 /**
  * @brief Is a Class a Sub-Class
@@ -47,7 +77,7 @@ bool issubclass(const class *cls, const class *subcls);
  *
  * @return Pointer of the VMT of the sub-class, otherwise NULL
  */
-const void *mt_of_class(const class *cls, const class *subcls);
+const method_table mt_of_class(const class *cls, const class *subcls);
 
 #ifdef __cplusplus
 }

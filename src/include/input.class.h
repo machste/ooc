@@ -40,6 +40,7 @@ size_t read(void *self, char *data, size_t size);
  * @brief Scan Formatted C-String from Input
  */
 int scan(void *self, const char *fmt, ...);
+int vscan(void *self, const char *fmt, va_list *va);
 
 #ifdef __cplusplus
 }

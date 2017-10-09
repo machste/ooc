@@ -1,6 +1,8 @@
 #ifndef _UTIL_MEMORY_H_
 #define _UTIL_MEMORY_H_
 
+#define ARRAY_SIZE( _array ) (sizeof(_array) / sizeof(_array)[0])
+
 #define OFFSETOF(type, member) ((size_t) &((type *)0)->member)
 
 #define STRUCT_OF(ptr, type, member) ({ \

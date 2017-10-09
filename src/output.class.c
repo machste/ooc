@@ -1,3 +1,5 @@
+#include <util/memory.h>
+
 #include <output.h>
 #include <output.class.h>
 
@@ -18,26 +20,33 @@ int format(void *self, const char *fmt, ...)
     return ret;
 }
 
-static const object_mt _ObjectVmt = {
-    .vinit = (vinit_cb)output_vinit,
-    .destroy = (destroy_cb)output_destroy,
-    .to_cstr = (to_cstr_cb)object_to_cstr,
-    .print = (print_cb)object_print,
-};
-
-static const void *_OutputVmts[] = {
-    &_ObjectVmt
-};
-
-static const output_mt _OutputMt = {
-    .write = (write_cb)output_write,
-    .vformat = (vformat_cb)output_vformat
-};
-
-static const class *_class_init(void)
+int vformat(void *self, const char *fmt, va_list *va)
 {
-    return class_init(Output, "output", sizeof(output), &_OutputMt, Object,
-            _OutputVmts);
+    const output_mt *mt = mt_of(self, Output);
+    return mt->vformat(self, fmt, va);
+}
+
+static const class *_class_init(class *cls)
+{
+    // Initialise method table of Output class
+    static const output_mt mt = {
+        .write = (write_cb)output_write,
+        .vformat = (vformat_cb)output_vformat
+    };
+    // Initialise virtual tables
+    static const object_mt object_vmt = {
+        .vinit = (vinit_cb)output_vinit,
+        .destroy = (destroy_cb)output_destroy,
+        .to_cstr = (to_cstr_cb)object_to_cstr,
+        .print = (print_cb)object_print,
+    };
+    static vtable vts[2];
+    vts[0].cls = cls;
+    vts[0].mt = (method_cb *)&mt;
+    vts[1].cls = Object;
+    vts[1].mt = (method_cb *)&object_vmt;
+    // Initialise class
+    return class_init(cls, "output", sizeof(output), ARRAY_SIZE(vts), vts);
 }
 
 static class _Output = {
