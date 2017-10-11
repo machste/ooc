@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     // Initialise object
     init(&o, Object, Object);
     // Test print method
-    Log_info("* Test print()\n");
+    Log_info("\n* Test print()\n");
     print(&o);
     // Destroy object
     destroy(&o);

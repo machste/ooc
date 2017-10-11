@@ -10,15 +10,15 @@ int main(int argc, char *argv[])
     // Initialise output object
     init(&out, Output);
     // Test print method
-    Log_info("* Test print()\n");
+    Log_info("\n* Test print()\n");
     print(&out);
     // Test write method
-    Log_info("* Test write()\n");
+    Log_info("\n* Test write()\n");
     write(&out, data, sizeof(data));
     write(&out, "\n", 1);
     // Test format method
-    Log_info("* Test format()\n");
-    format(&out, "Data: %s\n", data);
+    Log_info("\n* Test format()\n");
+    format(&out, "Data: %s, %.3f\n", data, 3.14159265359);
     // Destroy output object
     destroy(&out);
     return 0;
