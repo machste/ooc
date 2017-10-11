@@ -10,8 +10,9 @@ object *object_init(object *self, const class *cls)
     return self;
 }
 
-object *object_vinit(object *self, const class *cls, va_list *va)
+object *object_vinit(object *self, va_list *va)
 {
+    const class *cls = va_arg(*va, const class *);
     return object_init(self, cls);
 }
 

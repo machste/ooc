@@ -22,7 +22,7 @@ extern const class *Object;
 /**
  * @brief Object Methods
  */
-typedef void *(*vinit_cb)(void *self, const void *cls, va_list *va);
+typedef void *(*vinit_cb)(void *self, va_list *va);
 typedef void (*destroy_cb)(void *self);
 typedef size_t (*to_cstr_cb)(void *self, char *cstr, size_t size);
 typedef void (*print_cb)(void *self);
