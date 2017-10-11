@@ -5,13 +5,13 @@
 
 size_t read(void *self, char *data, size_t size)
 {
-    const input_mt *mt = mt_of(self, &Input);
+    const input_mt *mt = mt_of(self, Input);
     return mt->read(self, data, size);
 }
 
 int scan(void *self, const char *fmt, ...)
 {
-    const input_mt *mt = mt_of(self, &Input);
+    const input_mt *mt = mt_of(self, Input);
     int ret;
     va_list va;
     va_start(va, fmt);
@@ -22,7 +22,7 @@ int scan(void *self, const char *fmt, ...)
 
 int vscan(void *self, const char *fmt, va_list *va)
 {
-    const input_mt *mt = mt_of(self, &Input);
+    const input_mt *mt = mt_of(self, Input);
     return mt->vscan(self, fmt, va);
 }
 
