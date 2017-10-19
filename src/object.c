@@ -1,5 +1,5 @@
-#include <util/print.h> // TODO: Remove it
 #include <output.ifc.h>
+#include <util/rbuffer.h>
 
 #include <object.h>
 
@@ -30,7 +30,10 @@ int object_take(object *self, input *in) {
 
 size_t object_to_cstr(object *self, char *cstr, size_t size)
 {
-    // TODO: Use put() here
-    return snprintf(cstr, size, "<%s at %p, size: %zu>", name_of(self), self,
-            size_of(self));
+    size_t ret;
+    rbuffer buf;
+    init(&buf, RBuffer, cstr, size);
+    ret = put(self, &buf);
+    destroy(&buf);
+    return ret;
 }
