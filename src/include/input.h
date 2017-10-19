@@ -25,8 +25,8 @@ struct input {
  *
  * @return Pointer to the initialised 'input' object
  */
-input *input_init(input *self);
-input *input_vinit(input *self, va_list *va);
+input *input_init(input *self, const class *cls);
+input *input_vinit(input *self, const class *cls, va_list *va);
 
 /**
  * @brief Destroy an Input

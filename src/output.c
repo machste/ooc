@@ -2,15 +2,15 @@
 
 #include <output.h>
 
-output *output_init(output *self)
+output *output_init(output *self, const class *cls)
 {
-    object_init(&self->obj, Output);
+    object_init(&self->obj, cls);
     return self;
 }
 
-output *output_vinit(output *self, va_list *va)
+output *output_vinit(output *self, const class *cls, va_list *va)
 {
-    return output_init(self);
+    return output_init(self, cls);
 }
 
 void output_destroy(output *self)

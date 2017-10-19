@@ -25,8 +25,8 @@ struct output {
  *
  * @return Pointer to the initialised 'output' object
  */
-output *output_init(output *self);
-output *output_vinit(output *self, va_list *va);
+output *output_init(output *self, const class *cls);
+output *output_vinit(output *self, const class *cls, va_list *va);
 
 /**
  * @brief Destroy an Output

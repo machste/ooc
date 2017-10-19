@@ -17,7 +17,7 @@ void *init(void *self, const class *cls, ...)
     // Initialise object
     const object_mt *mt = (object_mt *)mt_of_class(cls, Object);
     va_start(va, cls);
-    obj = mt->vinit(self, &va);
+    obj = mt->vinit(self, cls, &va);
     va_end(va);
     return obj;
 }

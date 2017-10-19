@@ -2,15 +2,15 @@
 
 #include <input.h>
 
-input *input_init(input *self)
+input *input_init(input *self, const class *cls)
 {
-    object_init(&self->obj, Input);
+    object_init(&self->obj, cls);
     return self;
 }
 
-input *input_vinit(input *self, va_list *va)
+input *input_vinit(input *self, const class *cls, va_list *va)
 {
-    return input_init(self);
+    return input_init(self, cls);
 }
 
 void input_destroy(input *self)
