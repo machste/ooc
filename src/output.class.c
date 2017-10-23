@@ -37,8 +37,9 @@ static const class *_class_init(class *cls)
     static const object_mt object_vmt = {
         .vinit = (vinit_cb)output_vinit,
         .destroy = (destroy_cb)output_destroy,
-        .to_cstr = (to_cstr_cb)object_to_cstr,
-        .print = (print_cb)object_print,
+        .put = (put_cb)object_put,
+        .take = (take_cb)object_take,
+        .to_cstr = (to_cstr_cb)object_to_cstr
     };
     static vtable vts[2];
     vts[0].cls = cls;

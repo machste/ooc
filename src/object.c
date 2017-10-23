@@ -1,5 +1,4 @@
 #include <util/print.h> // TODO: Remove it
-#include <util/log.h> // TODO: Remove it
 #include <output.h>
 
 #include <object.h>
@@ -31,29 +30,7 @@ int object_take(object *self, input *in) {
 
 size_t object_to_cstr(object *self, char *cstr, size_t size)
 {
-
-    // TODO: Use _put_as_cstr here.
+    // TODO: Use put() here
     return snprintf(cstr, size, "<%s at %p, size: %zu>", name_of(self), self,
             size_of(self));
-    /*
-    size_t len = 0;
-    char *cstr = NULL;
-    len = object_to_cstr(self, cstr, len);
-    cstr = MALLOC(len + 1);
-    if (cstr != NULL) {
-        object_to_cstr(self, cstr, len + 1);
-        puts(cstr);
-        FREE(cstr);
-    } else {
-        Log_error("Out of memory!\n");
-    }
-    */
-}
-
-void object_print(object *self)
-{
-    output stdoutput;
-    init(&stdoutput, Output);
-    object_put(self, &stdoutput);
-    puts("");
 }

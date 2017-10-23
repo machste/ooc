@@ -34,57 +34,30 @@ typedef struct input input;
 /**
  * @brief Initialise an Object
  *
- * @return Pointer to the initialised 'object'
+ * Object specific implementation of init().
  */
 object *object_init(object *self, const class *cls);
 object *object_vinit(object *self, const class *cls, va_list *va);
 
 /**
- * @brief Destroy an Object
- *
- * Destroys objects created by init functions.
+ * Object specific implementation of destroy()
  */
 void object_destroy(object *self);
 
 /**
- * @brief Put an Object as C-String to an Output
- *
- * This function converts the object 'self' to its C-string representation and
- * puts it to 'out'.  
- * 
- * @return Lenght of the converted C-string or -1 for error
+ * Object specific implementation of put()
  */
 int object_put(object *self, output *out);
 
 /**
- * @brief Take an Object as C-String from an Input
- *
- * This function takes a C-string representation of an object from 'in' and
- * converts it to the object 'self'.  
- * 
- * @return Length of the C-string taken from the input or -1 for error
+ * Object specific implementation of take()
  */
 int object_take(object *self, input *in);
 
 /**
- * @brief Convert to C-String
- *
- * This function converts the object 'self' to its C-string representation.
- * If 'cstr' is set to NULL or 'size' equals 0, it will return the length of
- * the C-string (not including the terminating null byte).
- * 
- * @param cstr  Pointer to a C-string buffer
- * @param len   At most 'size' bytes (including the terminating null byte) are
- *              written to cstr
- * 
- * @return Lenght of the converted C-string
+ * Object specific implementation of to_cstr()
  */
 size_t object_to_cstr(object *self, char *cstr, size_t size);
-
-/**
- * @brief Print to Standard Output
- */
-void object_print(object *self);
 
 #ifdef __cplusplus
 }

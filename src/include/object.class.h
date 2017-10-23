@@ -24,8 +24,9 @@ extern const class *Object;
  */
 typedef void *(*vinit_cb)(void *self, const class *cls, va_list *va);
 typedef void (*destroy_cb)(void *self);
+typedef int (*put_cb)(void *self, void *out);
+typedef int (*take_cb)(void *self, void *in);
 typedef size_t (*to_cstr_cb)(void *self, char *cstr, size_t size);
-typedef void (*print_cb)(void *self);
 
 /**
  * @brief Method Table of Object
@@ -33,14 +34,22 @@ typedef void (*print_cb)(void *self);
 typedef struct object_mt {
     vinit_cb vinit;
     destroy_cb destroy;
+    put_cb put;
+    take_cb take;
     to_cstr_cb to_cstr;
-    print_cb print;
 } object_mt;
 
 /**
  * @brief Initialise an Object
  */
 void *init(void *self, const class *cls, ...);
+
+/**
+ * @brief Destroy an Object
+ *
+ * Destroys Objects created by init functions.
+ */
+void destroy(void *self);
 
 /**
  * @brief Get Class of an Object
@@ -70,31 +79,39 @@ size_t size_of(const void *self);
 const void *mt_of(const void *self, const void *subcls);
 
 /**
- * @brief Destroy an Object
+ * @brief Put an Object as C-String to an Output
  *
- * Destroys Objects created by init functions.
+ * This function converts the object 'self' to a displayable string and
+ * puts it to an ouput 'out'.
+ *
+ * @return Lenght of the converted C-string or -1 for error
  */
-void destroy(void *self);
+int put(void *self, void *out);
+
+/**
+ * @brief Take an Object as C-String from an Input
+ *
+ * This function expects a displayable C-string representation of an object,
+ * takes it from the input 'in' and converts it to the object 'self'.  
+ * 
+ * @return Length of the C-string taken from the input or -1 for error
+ */
+int take(void *self, void *in);
 
 /**
  * @brief Convert to C-String
  *
- * Converts an object to its C-string representation. If 'cstr' is set to NULL
- * or 'size' equals 0 it will return the lenght of the C-string (not including
- * the terminating null byte).
+ * This function converts the object 'self' to its C-string representation.
+ * If 'cstr' is set to NULL or 'size' equals 0, it will return the length of
+ * the C-string (not including the terminating null byte).
  * 
  * @param cstr  Pointer to a C-string buffer
- * @param len   At most 'size' bytes (including the terminating null byte) are
- *              written to cstr
+ * @param len   At most 'size' bytes (including the terminating null byte) that
+ *              are going to be written to 'cstr'.
  * 
  * @return Lenght of the converted C-string
  */
 size_t to_cstr(void *self, char *cstr, size_t size);
-
-/**
- * @brief Print to Standard Output
- */
-void print(void *self);
 
 #ifdef __cplusplus
 }

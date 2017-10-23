@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <util/assert.h>
 
 #include <class.h>
 
@@ -11,7 +11,7 @@ const class *class_init(class *cls, const char *name, size_t size,
     cls->vtables_len = vts_len;
     for (int i = 0; i < vts_len; i++) {
         const vtable *vt = vts + i;
-        assert(vt != NULL && vt->cls != NULL);
+        ASSERT(vt != NULL && vt->cls != NULL);
         // Initialise super class, if needed
         if (vt->cls->name == NULL) {
             vt->cls->class_init((class *)vt->cls);
@@ -24,7 +24,7 @@ const class *class_init(class *cls, const char *name, size_t size,
 
 static const vtable *_vtable(const class *cls, const class *subcls)
 {
-    assert(cls != NULL);
+    ASSERT(cls != NULL);
     for (int i = 0; i < cls->vtables_len; i++) {
         if (cls->vtables[i].cls == subcls) {
             return cls->vtables + i;
@@ -41,6 +41,6 @@ bool issubclass(const class *cls, const class *subcls)
 const method_table mt_of_class(const class *cls, const class *subcls)
 {
     const vtable *vt = _vtable(cls, subcls);
-    assert(vt != NULL);
+    ASSERT(vt != NULL);
     return vt->mt;
 }

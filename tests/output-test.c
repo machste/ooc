@@ -1,5 +1,6 @@
-#include <output.h>
 #include <util/log.h>
+#include <util/print.h>
+#include <output.h>
 
 const char data[] = "some data";
 

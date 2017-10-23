@@ -6,17 +6,17 @@ BUILD_DIR = ./build
 
 # List of *.c source of all object files.
 C_OBJ_FILES = $(wildcard src/util/*.c) $(wildcard src/*.c)
-
-# List of *.c source of all test program files.
-C_TEST_FILES = $(wildcard tests/*.c)
-
 # All .o files go to build dir.
 OBJS = $(C_OBJ_FILES:%.c=$(BUILD_DIR)/%.o)
 # Gcc will create these .d files containing dependencies.
 DEP = $(OBJS:%.o=%.d)
 
+# List of *.c source of all test program files.
+C_TEST_PROGS = $(wildcard tests/*-test.c)
+TEST_PROGS = $(C_TEST_PROGS:%-test.c=$(BUILD_DIR)/%-test)
+
 # Default target
-all: $(BUILD_DIR)/tests/object-test $(BUILD_DIR)/tests/output-test
+all: $(TEST_PROGS)
 .PHONY: all
 
 # Test targets - depends on all .o files.
