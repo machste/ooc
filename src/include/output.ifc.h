@@ -1,10 +1,12 @@
 /**
- * @file    output.class.h
+ * @file    output.ifc.h
  *
- * @brief   Generic Output Class
+ * @brief   Generic Output Interface
  */
-#ifndef _OUTPUT_CLASS_H_
-#define _OUTPUT_CLASS_H_
+#ifndef _OUTPUT_IFC_H_
+#define _OUTPUT_IFC_H_
+
+#include <stdarg.h>
 
 #include <class.h>
 
@@ -13,7 +15,7 @@ extern "C" {
 #endif
 
 /**
- * @brief Output Class
+ * @brief Output Interface
  */
 extern const class *Output;
 
@@ -30,6 +32,13 @@ typedef struct output_mt {
     write_cb write;
     vformat_cb vformat;
 } output_mt;
+
+/**
+ * @brief Output Interface
+ */
+typedef struct output {
+    // Interfaces have no members.
+} output;
 
 /**
  * @brief Write to Output
@@ -51,4 +60,4 @@ int vformat(void *self, const char *fmt, va_list *va);
 }
 #endif
 
-#endif /* _OUTPUT_CLASS_H_ */
+#endif /* _OUTPUT_IFC_H_ */

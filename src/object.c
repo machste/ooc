@@ -1,5 +1,5 @@
 #include <util/print.h> // TODO: Remove it
-#include <output.h>
+#include <output.ifc.h>
 
 #include <object.h>
 

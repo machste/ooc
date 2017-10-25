@@ -1,10 +1,12 @@
 /**
- * @file    input.class.h
+ * @file    input.ifc.h
  *
- * @brief   Generic Input Class
+ * @brief   Generic Input Interface
  */
-#ifndef _INPUT_CLASS_H_
-#define _INPUT_CLASS_H_
+#ifndef _INPUT_IFC_H_
+#define _INPUT_IFC_H_
+
+#include <stdarg.h>
 
 #include <class.h>
 
@@ -13,7 +15,7 @@ extern "C" {
 #endif
 
 /**
- * @brief Input Class
+ * @brief Input Interface
  */
 extern const class *Input;
 
@@ -32,6 +34,13 @@ typedef struct input_mt {
 } input_mt;
 
 /**
+ * @brief Input Interface
+ */
+typedef struct input {
+    // Interfaces have no members.
+} input;
+
+/**
  * @brief Read from Input
  */
 size_t read(void *self, char *data, size_t size);
@@ -46,4 +55,4 @@ int vscan(void *self, const char *fmt, va_list *va);
 }
 #endif
 
-#endif /* _INPUT_CLASS_H_ */
+#endif /* _INPUT_IFC_H_ */
