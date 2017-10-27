@@ -29,6 +29,13 @@ int vformat(void *self, const char *fmt, va_list *va)
     return mt->vformat(self, fmt, va);
 }
 
+bool flush(void *self)
+{
+    const output_mt *mt = mt_of(self, Output);
+    ASSERT(mt->flush != NULL);
+    return mt->flush(self);
+}
+
 static const class *_ifc_init(class *cls)
 {
     // Initialise interface

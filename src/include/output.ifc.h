@@ -24,6 +24,7 @@ extern const class *Output;
  */
 typedef size_t (*write_cb)(void *self, const char *data, size_t size);
 typedef int (*vformat_cb)(void *self, const char *fmt, va_list *va);
+typedef bool (*flush_cb)(void *self);
 
 /**
  * @brief Method Table of Output
@@ -31,6 +32,7 @@ typedef int (*vformat_cb)(void *self, const char *fmt, va_list *va);
 typedef struct output_mt {
     write_cb write;
     vformat_cb vformat;
+    flush_cb flush;
 } output_mt;
 
 /**
@@ -55,6 +57,16 @@ size_t write(void *self, const char *data, size_t size);
  */
 int format(void *self, const char *fmt, ...);
 int vformat(void *self, const char *fmt, va_list *va);
+
+/**
+ * @brief Flush Data to an Output
+ *
+ * Forces a write of all user-space buffered data for the given output or
+ * update stream via the stream's underlying write function.
+ * 
+ * @return True for a successfully flushed output otherwise false
+ */
+bool flush(void *self);
 
 #ifdef __cplusplus
 }
