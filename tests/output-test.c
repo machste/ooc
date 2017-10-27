@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     init(&out, Output);
     // Test print method
     Log_info("\n* Test print()\n");
-    print(&out);
+    print("%o", &out);
     // Test write method
     Log_info("\n* Test write()\n");
     write(&out, data, sizeof(data));

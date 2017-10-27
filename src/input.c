@@ -1,4 +1,4 @@
-#include <util/print.h>
+#include <stdio.h>
 
 #include <input.h>
 

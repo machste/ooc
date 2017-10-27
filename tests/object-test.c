@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     init(&o, Object, Object);
     // Test print method
     Log_info("\n* Test print()\n");
-    print(&o);
+    print("%o", &o);
     // Test to_cstr method
     test_to_cstr(&o);
     // Destroy object

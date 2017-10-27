@@ -1,6 +1,6 @@
 #include <stdarg.h>
+#include <stdio.h> // TODO: Replace it with <util/print.h> (when it is ready)
 
-#include <util/print.h>
 #include <util/log.h>
 
 #ifdef LOG_PRINT_LEVEL

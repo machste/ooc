@@ -1,4 +1,4 @@
-#include <util/print.h> // TODO: Remove it
+#include <stdio.h> // TODO: Remove it
 #include <output.h>
 
 #include <object.h>

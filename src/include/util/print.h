@@ -1,11 +1,12 @@
 #ifndef _UTIL_PRINT_H_
 #define _UTIL_PRINT_H_
 
-#include <stdio.h>
+#include <stdarg.h>
 
 /**
  * @brief Print an Object to the Standard Output
  */
-void print(void *obj);
+void print(const char *fmt, ...);
+void vprint(const char *fmt, va_list va);
 
 #endif /* _UTIL_PRINT_H_ */
