@@ -29,6 +29,13 @@ int vscan(void *self, const char *fmt, va_list *va)
     return mt->vscan(self, fmt, va);
 }
 
+bool discard(void *self)
+{
+    const input_mt *mt = mt_of(self, Input);
+    ASSERT(mt->discard != NULL);
+    return mt->discard(self);
+}
+
 static const class *_ifc_init(class *cls)
 {
     // Initialise interface

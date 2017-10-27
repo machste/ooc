@@ -24,6 +24,7 @@ extern const class *Input;
  */
 typedef size_t (*read_cb)(void *self, char *data, size_t size);
 typedef int (*vscan_cb)(void *self, const char *fmt, va_list *va);
+typedef bool (*discard_cb)(void *self);
 
 /**
  * @brief Method Table of Input
@@ -31,6 +32,7 @@ typedef int (*vscan_cb)(void *self, const char *fmt, va_list *va);
 typedef struct input_mt {
     read_cb read;
     vscan_cb vscan;
+    discard_cb discard;
 } input_mt;
 
 /**
@@ -50,6 +52,16 @@ size_t read(void *self, char *data, size_t size);
  */
 int scan(void *self, const char *fmt, ...);
 int vscan(void *self, const char *fmt, va_list *va);
+
+/**
+ * @brief Discard Data from an Input
+ *
+ * Discards any buffered data that has been fetched from the underlying file,
+ * but has not been consumed by the application.
+ * 
+ * @return True for a successfully flushed ouput otherwise false
+ */
+bool discard(void *self);
 
 #ifdef __cplusplus
 }
