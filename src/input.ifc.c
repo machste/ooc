@@ -3,16 +3,16 @@
 
 #include <input.ifc.h>
 
-size_t read(void *self, char *data, size_t size)
+size_t read(input *self, char *data, size_t size)
 {
-    const input_mt *mt = mt_of(self, Input);
+    const input_mt *mt = mt_of((object *)self, Input);
     ASSERT(mt->read != NULL);
     return mt->read(self, data, size);
 }
 
-int scan(void *self, const char *fmt, ...)
+int scan(input *self, const char *fmt, ...)
 {
-    const input_mt *mt = mt_of(self, Input);
+    const input_mt *mt = mt_of((object *)self, Input);
     int ret;
     ASSERT(mt->vscan != NULL);
     va_list va;
@@ -22,16 +22,16 @@ int scan(void *self, const char *fmt, ...)
     return ret;
 }
 
-int vscan(void *self, const char *fmt, va_list *va)
+int vscan(input *self, const char *fmt, va_list *va)
 {
-    const input_mt *mt = mt_of(self, Input);
+    const input_mt *mt = mt_of((object *)self, Input);
     ASSERT(mt->vscan != NULL);
     return mt->vscan(self, fmt, va);
 }
 
-bool discard(void *self)
+bool discard(input *self)
 {
-    const input_mt *mt = mt_of(self, Input);
+    const input_mt *mt = mt_of((object *)self, Input);
     ASSERT(mt->discard != NULL);
     return mt->discard(self);
 }

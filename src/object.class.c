@@ -3,7 +3,7 @@
 
 #include <object.h>
 
-void *init(void *self, const class *cls, ...)
+void *init(object *self, const class *cls, ...)
 {
     void *obj;
     va_list va;
@@ -22,54 +22,54 @@ void *init(void *self, const class *cls, ...)
     return obj;
 }
 
-void destroy(void *self)
+void destroy(object *self)
 {
     const object_mt *mt = mt_of(self, Object);
     ASSERT(mt->destroy);
     mt->destroy(self);
 }
 
-const class *class_of(const void *self)
+const class *class_of(const object *self)
 {
     ASSERT(self != NULL);
     return ((object *)self)->cls;
 }
 
-bool isinstance(const void *self, const void *cls)
+bool isinstance(const object *self, const class *cls)
 {
     return false;
 }
 
-const char *name_of(const void *self)
+const char *name_of(const object *self)
 {
     return class_of(self)->name;
 }
 
-size_t size_of(const void *self)
+size_t size_of(const object *self)
 {
     return class_of(self)->size;
 }
 
-const void *mt_of(const void *self, const void *subcls)
+const void *mt_of(const object *self, const class *subcls)
 {
     return mt_of_class(class_of(self), subcls);
 }
 
-int put(void *self, void *out)
+int put(object *self, output *out)
 {
     const object_mt *mt = mt_of(self, Object);
     ASSERT(mt->put);
     return mt->put(self, out);
 }
 
-int take(void *self, void *in)
+int take(object *self, input *in)
 {
     const object_mt *mt = mt_of(self, Object);
     ASSERT(mt->take);
     return mt->take(self, in);
 }
 
-size_t to_cstr(void *self, char *cstr, size_t size)
+size_t to_cstr(object *self, char *cstr, size_t size)
 {
     const object_mt *mt = mt_of(self, Object);
     ASSERT(mt->to_cstr);

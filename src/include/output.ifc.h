@@ -20,11 +20,18 @@ extern "C" {
 extern const class *Output;
 
 /**
+ * @brief Output Interface
+ */
+typedef struct output {
+    // Interfaces have no members.
+} output;
+
+/**
  * @brief Output Methods
  */
-typedef size_t (*write_cb)(void *self, const char *data, size_t size);
-typedef int (*vformat_cb)(void *self, const char *fmt, va_list *va);
-typedef bool (*flush_cb)(void *self);
+typedef size_t (*write_cb)(output *self, const char *data, size_t size);
+typedef int (*vformat_cb)(output *self, const char *fmt, va_list *va);
+typedef bool (*flush_cb)(output *self);
 
 /**
  * @brief Method Table of Output
@@ -36,18 +43,11 @@ typedef struct output_mt {
 } output_mt;
 
 /**
- * @brief Output Interface
- */
-typedef struct output {
-    // Interfaces have no members.
-} output;
-
-/**
  * @brief Write to Output
  *
  * @return Number of the written bytes.
  */
-size_t write(void *self, const char *data, size_t size);
+size_t write(output *self, const char *data, size_t size);
 
 /**
  * @brief Write Formatted C-String to Output
@@ -55,8 +55,8 @@ size_t write(void *self, const char *data, size_t size);
  * @return  Length of the formatted C-string (excluding the terminating null
  *          byte), if an output error occured, a negativ value is returned.
  */
-int format(void *self, const char *fmt, ...);
-int vformat(void *self, const char *fmt, va_list *va);
+int format(output *self, const char *fmt, ...);
+int vformat(output *self, const char *fmt, va_list *va);
 
 /**
  * @brief Flush Data to an Output
@@ -66,7 +66,7 @@ int vformat(void *self, const char *fmt, va_list *va);
  * 
  * @return True for a successfully flushed output otherwise false
  */
-bool flush(void *self);
+bool flush(output *self);
 
 #ifdef __cplusplus
 }

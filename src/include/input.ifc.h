@@ -20,11 +20,18 @@ extern "C" {
 extern const class *Input;
 
 /**
+ * @brief Input Interface
+ */
+typedef struct input {
+    // Interfaces have no members.
+} input;
+
+/**
  * @brief Input Methods
  */
-typedef size_t (*read_cb)(void *self, char *data, size_t size);
-typedef int (*vscan_cb)(void *self, const char *fmt, va_list *va);
-typedef bool (*discard_cb)(void *self);
+typedef size_t (*read_cb)(input *self, char *data, size_t size);
+typedef int (*vscan_cb)(input *self, const char *fmt, va_list *va);
+typedef bool (*discard_cb)(input *self);
 
 /**
  * @brief Method Table of Input
@@ -36,22 +43,15 @@ typedef struct input_mt {
 } input_mt;
 
 /**
- * @brief Input Interface
- */
-typedef struct input {
-    // Interfaces have no members.
-} input;
-
-/**
  * @brief Read from Input
  */
-size_t read(void *self, char *data, size_t size);
+size_t read(input *self, char *data, size_t size);
 
 /**
  * @brief Scan Formatted C-String from Input
  */
-int scan(void *self, const char *fmt, ...);
-int vscan(void *self, const char *fmt, va_list *va);
+int scan(input *self, const char *fmt, ...);
+int vscan(input *self, const char *fmt, va_list *va);
 
 /**
  * @brief Discard Data from an Input
@@ -61,7 +61,7 @@ int vscan(void *self, const char *fmt, va_list *va);
  * 
  * @return True for a successfully flushed ouput otherwise false
  */
-bool discard(void *self);
+bool discard(input *self);
 
 #ifdef __cplusplus
 }

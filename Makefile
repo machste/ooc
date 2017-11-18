@@ -1,5 +1,5 @@
 CC = gcc
-C_FLAGS = -Werror -I./src/include -DLOG_ENABLED -g -O0
+C_FLAGS = -Werror -fplan9-extensions -I./src/include -DLOG_ENABLED -g -O0
 
 # Put all auto generated stuff to this build dir.
 BUILD_DIR = ./build

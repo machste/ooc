@@ -3,16 +3,16 @@
 
 #include <output.ifc.h>
 
-size_t write(void *self, const char *data, size_t size)
+size_t write(output *self, const char *data, size_t size)
 {
-    const output_mt *mt = mt_of(self, Output);
+    const output_mt *mt = mt_of((object *)self, Output);
     ASSERT(mt->write != NULL);
     return mt->write(self, data, size);
 }
 
-int format(void *self, const char *fmt, ...)
+int format(output *self, const char *fmt, ...)
 {
-    const output_mt *mt = mt_of(self, Output);
+    const output_mt *mt = mt_of((object *)self, Output);
     int ret;
     ASSERT(mt->vformat != NULL);
     va_list va;
@@ -22,16 +22,16 @@ int format(void *self, const char *fmt, ...)
     return ret;
 }
 
-int vformat(void *self, const char *fmt, va_list *va)
+int vformat(output *self, const char *fmt, va_list *va)
 {
-    const output_mt *mt = mt_of(self, Output);
+    const output_mt *mt = mt_of((object *)self, Output);
     ASSERT(mt->vformat != NULL);
     return mt->vformat(self, fmt, va);
 }
 
-bool flush(void *self)
+bool flush(output *self)
 {
-    const output_mt *mt = mt_of(self, Output);
+    const output_mt *mt = mt_of((object *)self, Output);
     ASSERT(mt->flush != NULL);
     return mt->flush(self);
 }

@@ -22,16 +22,6 @@ typedef struct object {
 } object;
 
 /**
- * Forward Declaration of the 'output' Object
- */
-typedef struct output output;
-
-/**
- * Forward Declaration of the 'input' Object
- */
-typedef struct input input;
-
-/**
  * @brief Initialise an Object
  *
  * Object specific implementation of init().

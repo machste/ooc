@@ -20,13 +20,28 @@ extern "C" {
 extern const class *Object;
 
 /**
+ * Forward Declaration of the 'object'
+ */
+typedef struct object object;
+
+/**
+ * Forward Declaration of the 'output' Object
+ */
+typedef struct output output;
+
+/**
+ * Forward Declaration of the 'input' Object
+ */
+typedef struct input input;
+
+/**
  * @brief Object Methods
  */
-typedef void *(*vinit_cb)(void *self, const class *cls, va_list *va);
-typedef void (*destroy_cb)(void *self);
-typedef int (*put_cb)(void *self, void *out);
-typedef int (*take_cb)(void *self, void *in);
-typedef size_t (*to_cstr_cb)(void *self, char *cstr, size_t size);
+typedef void *(*vinit_cb)(object *self, const class *cls, va_list *va);
+typedef void (*destroy_cb)(object *self);
+typedef int (*put_cb)(object *self, output *out);
+typedef int (*take_cb)(object *self, input *in);
+typedef size_t (*to_cstr_cb)(object *self, char *cstr, size_t size);
 
 /**
  * @brief Method Table of Object
@@ -42,41 +57,41 @@ typedef struct object_mt {
 /**
  * @brief Initialise an Object
  */
-void *init(void *self, const class *cls, ...);
+void *init(object *self, const class *cls, ...);
 
 /**
  * @brief Destroy an Object
  *
  * Destroys Objects created by init functions.
  */
-void destroy(void *self);
+void destroy(object *self);
 
 /**
  * @brief Get Class of an Object
  */
-const class *class_of(const void *self);
+const class *class_of(const object *self);
 
 /**
  * @brief Is an Object an Instance Of
  */
-bool isinstance(const void *self, const void *cls);
+bool isinstance(const object *self, const class *cls);
 
 /**
  * @brief Get Name of the Class
  */
-const char *name_of(const void *self);
+const char *name_of(const object *self);
 
 /**
  * @brief Get the Size Needed in the Memory of an Object
  */
-size_t size_of(const void *self);
+size_t size_of(const object *self);
 
 /**
  * @brief Get Virtual Method Table (VMT) Of a Sub-Class
  *
  * @return Pointer of the VMT of the sub-class, otherwise NULL
  */
-const void *mt_of(const void *self, const void *subcls);
+const void *mt_of(const object *self, const class *subcls);
 
 /**
  * @brief Put an Object as C-String to an Output
@@ -86,7 +101,7 @@ const void *mt_of(const void *self, const void *subcls);
  *
  * @return Lenght of the converted C-string or -1 for error
  */
-int put(void *self, void *out);
+int put(object *self, output *out);
 
 /**
  * @brief Take an Object as C-String from an Input
@@ -96,7 +111,7 @@ int put(void *self, void *out);
  * 
  * @return Length of the C-string taken from the input or -1 for error
  */
-int take(void *self, void *in);
+int take(object *self, input *in);
 
 /**
  * @brief Convert to C-String
@@ -111,7 +126,7 @@ int take(void *self, void *in);
  * 
  * @return Lenght of the converted C-string
  */
-size_t to_cstr(void *self, char *cstr, size_t size);
+size_t to_cstr(object *self, char *cstr, size_t size);
 
 #ifdef __cplusplus
 }
